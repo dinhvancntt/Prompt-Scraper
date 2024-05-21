@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Scraper</title>
+</head>
+<body>
+    <h1>Prompt Scraper</h1>
+    <form id="promptForm" method="POST" action="/scrape">
+        <label for="search_terms">Search Terms:</label>
+        <input type="text" id="search_terms" name="search_terms"><br><br>
+        
+        <label for="max_prompts">Number of Prompts (Maximum):</label>
+        <input type="number" id="max_prompts" name="max_prompts" value="100"><br><br>
+        
+        <label>Aspect Ratio:</label><br>
+        <input type="radio" id="aspect16_9" name="aspect_ratio" value="16:9" checked>
+        <label for="aspect16_9">16:9</label><br>
+        <input type="radio" id="aspect1_1" name="aspect_ratio" value="1:1">
+        <label for="aspect1_1">1:1</label><br><br>
+        
+        <button type="submit">Get Prompts</button>
+    </form>
+
+    <h2>Scraped Prompts</h2>
+    <textarea id="scrapedPrompts" rows="20" cols="100">
+        {% for prompt in prompts %}
+            {{ prompt }}&#13;&#10;
+        {% endfor %}
+    </textarea>
+</body>
+</html>
