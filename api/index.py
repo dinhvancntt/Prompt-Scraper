@@ -1,6 +1,5 @@
 import os
 import socket
-import webbrowser
 from flask import Flask, render_template, request
 from scraper import scrape_adobe_stock_prompts, save_prompts_to_file
 
@@ -19,15 +18,6 @@ def scrape():
     save_prompts_to_file(prompts)
     return render_template('index.html', prompts=prompts)
 
-def find_free_port():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('', 0))
-    port = s.getsockname()[1]
-    s.close()
-    return port
-
 if __name__ == '__main__':
-    port = find_free_port()
-    url = f"http://127.0.0.1:{port}"
-    webbrowser.open(url)
-    app.run(port=port, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
