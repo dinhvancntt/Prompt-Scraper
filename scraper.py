@@ -2,10 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-def scrape_adobe_stock_prompts(search_terms, max_prompts, aspect_ratio):
-    url = f'https://stock.adobe.com/search?k={search_terms}'  # Adjust this to the actual URL with search terms
-    print(f"Scraping URL: {url}")
-    response = requests.get(url)
+def scrape_adobe_stock_prompts(search_terms, max_prompts, aspect_ratio, url=None):
+    if url:
+        scraping_url = url
+    else:
+        scraping_url = f'https://stock.adobe.com/search?k={search_terms}'  # Default to Adobe Stock search URL
+
+    print(f"Scraping URL: {scraping_url}")
+    response = requests.get(scraping_url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
     prompts = []

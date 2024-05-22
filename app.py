@@ -14,8 +14,9 @@ def index():
 def scrape():
     max_prompts = request.form.get('max_prompts')
     search_terms = request.form.get('search_terms')
+    url = request.form.get('url')  # Get the URL from the form
     aspect_ratio = request.form.get('aspect_ratio', '16:9')  # Default to 16:9 if not provided
-    prompts = scrape_adobe_stock_prompts(search_terms, max_prompts, aspect_ratio)
+    prompts = scrape_adobe_stock_prompts(search_terms, max_prompts, aspect_ratio, url)
     save_prompts_to_file(prompts)
     return render_template('index.html', prompts=prompts)
 
@@ -31,3 +32,4 @@ if __name__ == '__main__':
     url = f"http://127.0.0.1:{port}"
     webbrowser.open(url)
     app.run(port=port, debug=True)
+
